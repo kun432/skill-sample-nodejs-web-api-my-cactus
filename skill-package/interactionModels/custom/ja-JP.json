@@ -1,0 +1,156 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "サボテンシミュレーション",
+            "modelConfiguration": {
+                "fallbackIntentSensitivity": {
+                    "level": "LOW"
+                }
+            },
+            "intents": [
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
+                },
+                {
+                    "name": "CaptureDestination",
+                    "slots": [
+                        {
+                            "name": "destination",
+                            "type": "AMAZON.City"
+                        }
+                    ],
+                    "samples": [
+                        "{destination} がいいな",
+                        "{destination}",
+                        "{destination} に行きたい"
+                    ]
+                },
+                {
+                    "name": "WaterCactusIntent",
+                    "slots": [],
+                    "samples": [
+                        "水をあげて",
+                        "サボテンに水をあげて",
+                        "水をあげる",
+                        "サボテンに水をあげる",
+                        "水やりする",
+                        "サボテンに水やりする",
+                        "水やりして",
+                        "サボテンに水やりして",
+                        "雨を降らせて"
+                    ]
+                },
+                {
+                    "name": "OpenBlindsIntent",
+                    "slots": [],
+                    "samples": [
+                        "ブラインドを上げて",
+                        "ブラインドを上げる",
+                        "ブラインドを開けて",
+                        "ブラインドを開ける",
+                        "窓を開けて",
+                        "窓を開ける",
+                        "光を当てて",
+                        "光を当てる",
+                        "サボテンに光を当てて",
+                        "サボテンに光を当てる",
+                        "日光を当てて",
+                        "日光を当てる",
+                        "サボテンに日光を当てて",
+                        "サボテンに日光を当てる"
+                    ]
+                },
+                {
+                    "name": "CloseBlindsIntent",
+                    "slots": [],
+                    "samples": [
+                        "ブラインドを下げて",
+                        "ブラインドを下げる",
+                        "ブラインドを下ろして",
+                        "ブラインドを下ろす",
+                        "ブラインドを閉じて",
+                        "ブラインドを閉じる",
+                        "窓を閉じて",
+                        "窓を閉じる",
+                        "窓を閉めて",
+                        "窓を閉める",
+                        "光を止める",
+                        "光を止めて",
+                        "サボテンに光を当てないで",
+                        "サボテンに光を当てない",
+                        "日光を止めて",
+                        "日光を止める",
+                        "サボテンに日光を当てないで",
+                        "サボテンに日光を当てない"
+                    ]
+                },
+                {
+                    "name": "GetStatusIntent",
+                    "slots": [],
+                    "samples": [
+                        "えーっと",
+                        "ええと",
+                        "えーっとなんだっけ",
+                        "ええとなんだっけ",
+                        "元気",
+                        "サボテンは元気",
+                        "状態を教えて",
+                        "状態はどう",
+                        "調子を教えて",
+                        "調子どう",
+                        "具合を教えて",
+                        "具合はどう",
+                        "サボテンの状態を教えて",
+                        "サボテンの状態はどう",
+                        "サボテンの調子を教えて",
+                        "サボテンの調子はどう",
+                        "サボテンの具合を教えて",
+                        "サボテンの具合はどう",
+                        "サボテンはどう"
+                    ]
+                },
+                {
+                    "name": "AMAZON.NoIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.YesIntent",
+                    "samples": []
+                },
+                {
+                    "name": "ShowBadgesIntent",
+                    "slots": [],
+                    "samples": [
+                        "バッジ",
+                        "バッジを見せて",
+                        "バッジが見たい",
+                        "トロフィー",
+                        "トロフィーを見せて",
+                        "トロフィーが見たい",
+                        "実績",
+                        "実績を見せて",
+                        "実績がみたい"
+                    ]
+                },
+                {
+                    "name": "AMAZON.FallbackIntent",
+                    "samples": []
+                }
+            ],
+            "types": []
+        }
+    }
+}

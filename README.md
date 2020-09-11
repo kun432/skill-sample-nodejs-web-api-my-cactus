@@ -1,94 +1,95 @@
-## My Cactus Simulation Alexa Game
+## Alexaサボテン育成シミュレーションゲーム
 
-This is the repository for the my cactus simulation Alexa Game. This is an Alexa skill where players manage the light and watering of a cactus. They must check in frequently and keep the cactus alive and happy!
+Alexaサボテン育成シミュレーションゲームのリポジトリです。このAlexaスキルでは、サボテンの光と水やりを管理します。ユーザはこまめにチェックインして、サボテンが生き生きと幸せになるように管理しなければなりません。
 
-This skill uses the Alexa Web API for Games for 3D graphics on capable devices. The game is fully playable everywhere Alexa is, since it is a voice-driven experience. 
+このスキルは、Alexa Web API for Gamesを使用して、対応デバイス上で3Dグラフィックスを表示します。このゲームは音声で操作するため、Alexaがいる場所であればどこでも完全に遊ぶことができます。
 
-## Alexa Skill Usage Instructions
+## Alexaスキルの利用方法
 
-This project is meant to be used with ASK CLI V2. There is AWS infrastructure involved and you will also need an AWS account for this. This uses the ASK CLI V2 cfn-deployer. The infrastructure is defined in [skill-stack.yaml](./infrastructure/cfn-deployer/skill-stack.yaml). The code is defined in the lambda directory. 
+このプロジェクトはASK CLI V2での利用を想定しています。AWSインフラの使用が前提であり、そのためのAWSアカウントも必要になります。これはASK CLI V2のcfn-deployerを使用して行われます。インフラストラクチャは[skill-stack.yaml](./infrastructure/cfn-deployer/skill-stack.yaml)で定義されています。コードはlambdaディレクトリに定義されています。
 
+### レポジトリの取得
 
-### Get this repo
-If you want to run this sample, make sure you are running ASK CLI v2. For instructions on doing so and setting up an AWS IAM user for use with the CLI, see [the technical reference docs.](https://developer.amazon.com/en-US/docs/alexa/smapi/quick-start-alexa-skills-kit-command-line-interface.html)
+このサンプルを実行する場合は、ASK CLI v2を実行できることを確認してください。CLIを使用するためのAWS IAMユーザの設定方法については、[テクニカルリファレンスドキュメント](https://developer.amazon.com/en-US/docs/alexa/smapi/quick-start-alexa-skills-kit-command-line-interface.html)を参照してください。
 
-From your terminal, try:
+ターミナルから以下を実行してください。
 
 `ask new --template-url https://github.com/alexa/skill-sample-nodejs-web-api-my-cactus`
 
-Select `AWS with CloudFormation`.
+質問が表示されたら、`AWS with CloudFormation` を選択します。
 
-Use the defaults for each of the answers. This will set you up with the skill. From there: 
+それ以外はそれぞれのデフォルトを選択してください。これでスキルの設定が行われます。そのあと、
 
-To build this sample, first build the node packages:
+サンプルをビルドするために、まずnodeのパッケージをビルドします。
 
 1. `cd lambda`
 2. `npm install`
 3. `cd ..`
 
-Now, your AWS entity associated with the CLI will need access to create and manage the following resources: Cloudformation, IAM, AWS Lambda, Cloudfront, S3. Go to the AWS console, and for your IAM user, add these permissions.
+そして、CLIに関連付けられたAWSエンティティに対して、次に挙げるリソースを作成・管理するためのアクセスが必要になります: Cloudformation、IAM、AWS Lambda、Cloudfront、S3。AWSコンソールにアクセスし、IAMユーザーに以下のパーミッションを追加します。
 
-For instance, adding the following policies will grant all the deploy access you will need:
+たとえば、以下のようなポリシーを追加することで、必要なデプロイアクセスをすべて許可します。
+
 * AWSLambdaFullAccess
 * IAMFullAccess
 * AmazonS3FullAccess
 * CloudFrontFullAccess
 * AWSCloudFormationFullAccess
 
-Then you can deploy using: `ask deploy` from this directory. This will set up the stack, but will not upload the web assets needed. For that, you will need to get the name of the PublicRead S3 bucket created in the cloudformation deployment and set that as an environment variable. For instance: 
+これで、このディレクトリから `ask deploy` を使ってデプロイすることができるようになります。これにより（Cloudformationの）スタックがセットアップされますが、必要なWebアセットはアップロードされません。アップロードを行うには、cloudformationデプロイで作成したPublicRead S3バケットの名前を取得し、環境変数として設定する必要があります。たとえば以下のようにします。
 
-`export MY_CACTUS_S3="ask-pricklypete-default-skillstack-s3webappbucket-1234abc56789.s3.amazonaws.com"`
+`export MY_CACTUS_S3="ask-pricklypete-default-skillstack-s3webappbucket-1234abc56789"`
 
-Then, head over to the webapp directory. From there, run:
+次に、webappディレクトリに移動して、以下を実行します。
 
-`uploadS3`
+`npm run uploadS3`
 
-This will take the files and upload them. From there, you can directly test and the code will point to the public website hosted in the cloud. If you would like to override the value provided for the publicly accessible link to a local one (for instance, if you are serving the assets from your local environment), simply open up the Lambda console, and override the "Domain" environment variable with your own. For more instructions head to the [webapp directory](./webapp).
+これでファイルがアップロードされ、テストが可能になり、コードはクラウド上でホストされている公開サイトを指し示します。公開されているリンクの値をローカルのものにオーバーライドしたい場合（たとえば、ローカル環境からアセットを提供している場合など）、Lambdaコンソールを開いて、"Domain" 環境変数をご自身の環境に合わせてでオーバーライドします。詳しい説明は [webapp ディレクトリ](./webapp) を参照してください。
 
-### Clone the Git repo
+### Gitレポジトリのクローン
 
-If you want to make changes to this repo and have set up the skill using the previous methods, follow these instructions so you can pull the latest code when you need to or create your own pull requests.
+レポジトリに変更を加えたい場合や、以前の方法でスキルを設定している場合は、以下の手順に従ってください。これにより、必要な場合は最新のコードをpullしたり、独自のpullリクエストを作成したりできます。
 
-From the top level directory, run:
+トップレベルのディレクトリで、以下を実行します。
 
- git init .
+`git init .`
 
-Then add the origin with:
+以下でoriginを追加します。
 
- git remote add origin https://github.com/alexa/skill-sample-nodejs-web-api-my-cactus.git
+`git remote add origin https://github.com/alexa/skill-sample-nodejs-web-api-my-cactus.git`
 
-or:
+もしくは、以下でもOKです。
 
- git remote add origin git@github.com:alexa/skill-sample-nodejs-web-api-my-cactus.git
+`git remote add origin git@github.com:alexa/skill-sample-nodejs-web-api-my-cactus.git`
 
-Set the upstream to the main branch.
+メインのブランチにupstreamを向けます。
 
- git branch --set-upstream-to=origin/master 
+`git branch --set-upstream-to=origin/master`
 
-Then, you can refresh by pulling:
+これで、pullにより最新の状態に更新できます。
 
- git pull
+`git pull`
 
-Or, if this is aborted, you can always hard reset the branch:
+また、中止する場合は、いつでもブランチをハードリセットできます。
 
- git reset --hard origin/master 
+`git reset --hard origin/master`
 
-Now you can pull whenever you need to update your code. 
+これでいつでもコードを最新化することができるようになりました。
 
-## Web Application Setup
+## Webアプリケーションのセットアップ
 
-You can find the code and information about the Node.js web application under the [webapp directory](./webapp). 
+Node.jsで書かれたWebアプリケーションのコードや情報は、[webappディレクトリ](./webapp)以下にあります。
 
-## Bugs?
+## バグを見つけたら？
 
-Please open bug reports on GitHub using GitHub issues. Include the steps taken to reproduce. You can use this for suggested improvements as well. 
+GitHub issuesを使ってGitHub上でバグをレポートしてください。再現するための手順を含めてください。改善提案も同じところから行えます。
 
-Feel free to fork and open a pull request if you have a fix or improvement to make, also!
+もちろん、修正や改善点については、遠慮なくforkしてpullリクエストを送ってください。
 
-## Security
+## セキュリティ
 
-See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more information.
+詳細は、[コントリビュートについて](CONTRIBUTING.md#security-issue-notifications) を御覧ください。
 
-## License
+## ライセンス
 
-This library is licensed under the Amazon Software License.
+このライブラリは、Amazon Software Licenseに基づいてライセンスされています。

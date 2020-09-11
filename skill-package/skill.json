@@ -60,19 +60,19 @@
       "distributionCountries": [],
       "isAvailableWorldwide": true,
       "locales": {
-        "en-US": {
-          "description": "Sample Full Description",
+        "ja-JP": {
+          "description": "詳細な説明のサンプル",
           "examplePhrases": [
-            "Alexa open my cactus",
-            "hello",
-            "help"
+            "アレクサ、サボテンシミュレーションをひらいて",
+            "こんにちは",
+            "ヘルプ"
           ],
           "keywords": [],
-          "name": "My Cactus",
-          "summary": "Sample Short Description"
+          "name": "サボテンシミュレーション",
+          "summary": "短い説明のサンプル"
         }
       },
-      "testingInstructions": "Sample Testing Instructions."
+      "testingInstructions": "テスト手順のサンプル"
     }
   }
 }

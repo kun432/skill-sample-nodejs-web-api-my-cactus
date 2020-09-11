@@ -28,7 +28,7 @@ const WATER_INCREMENT = 10;
 // really using it now.
 const WATER_LEVEL_PER_LITER = 84;
 
-const FALLBACK_REPROMPT = "What would you like to do?";
+const FALLBACK_REPROMPT = "どうしますか？";
 
 const LaunchRequestHandler = {
     canHandle(handlerInput) {
@@ -37,22 +37,19 @@ const LaunchRequestHandler = {
     handle(handlerInput) {
 
         let speakOutput = `${SOUND_FX.STARTUP_TONE} `;
-        speakOutput += 'Your shelf is empty, ';
-        speakOutput += 'but <amazon:emotion name="excited" intensity="medium">';
-        speakOutput += 'don\’t despair;</amazon:emotion> <break time=".5s"/>';
-        speakOutput += 'I\’m here to pair you with the right prickly pear; ';
-        speakOutput += '<break time=".5s"/>Water and light are what it ';
-        speakOutput += 'needs;<break time=".5s"/>';
-        speakOutput += "Treat this succulent well, and they’ll reward your "; 
-        speakOutput += 'good deeds!<break time=".1s"/> ';
-        speakOutput += 'To choose just the right cactus that needs ';
-        speakOutput += '<amazon:emotion name="excited" intensity="medium">your ';
-        speakOutput += 'assistance,</amazon:emotion> '
+        speakOutput += '棚は空っぽだけど、';
+        speakOutput += '<say-as interpret-as="interjection">大丈夫</say-as>。';
+        speakOutput += '<break time=".5s"/>';
+        speakOutput += '私があなたにぴったりのサボテンをご紹介します。';
+        speakOutput += '<break time=".5s"/>必要なのは水と日光だけ。';
+        speakOutput += '<break time=".5s"/>';
+        speakOutput += "大事にしてあげると、きっと応えてくれますよ。"; 
+        speakOutput += '<break time=".1s"/>';
+        speakOutput += 'あなたにぴったりの相棒となるサボテンを選ぶために、';
         
         let reprompt = '<break time=".5s"/>';
-        reprompt += 'tell me: If you could go anywhere in the world, where ';
-        reprompt += 'would <amazon:emotion name="excited" intensity="medium">';
-        reprompt += 'you visit?</amazon:emotion>';
+        reprompt += '教えて下さい。';
+        reprompt += '世界のどこかに行けるとしたら どこに行きますか？';
 
         speakOutput += reprompt;
         conditionallyLaunchWebApp(handlerInput);
@@ -187,20 +184,15 @@ const CaptureDestinationHandler = {
 
         
         let speakOutput = "${SOUND_FX.DESTINATION_TONE} ";
-        speakOutput += 'I found the <prosody pitch="high">perfect</prosody> ';
-        speakOutput += '<prosody volume="loud">cactus for you!</prosody> ';
-        speakOutput += `Meet ${name}. They need water, and sunlight to thrive. `; 
-        speakOutput += '<prosody rate="110%">They’re just a sprout right now, ';
-        speakOutput += 'but keep them happy and they’ll grow a ';
-        speakOutput += '<prosody pitch="high">little</prosody> each day. ';
-        speakOutput += '</prosody> <break time="1s"/><prosody rate="110%">You ';
-        speakOutput += 'can ask me to water your cactus; but not ';
-        speakOutput += '<emphasis level="strong"></emphasis>';
-        speakOutput += '<prosody pitch="high">too much!</prosody></prosody> ';
-        speakOutput += 'Or you can ask me to open and close the blinds. ';
-        speakOutput += `<prosody rate="110%">${name} needs lots of sun, but `;
-        speakOutput += 'they’ll get <prosody pitch="high">chilly</prosody> at ';
-        speakOutput += 'night if you don’t close them!</prosody> ';
+        speakOutput += 'あなたにぴったりのサボテンを見つけてきましたよ。';
+        speakOutput += `名前は、${name} です。成長するには水と日光が必要です。`; 
+        speakOutput += '今はまだ芽が出たばかりですが、';
+        speakOutput += '大切に育ててあげると毎日少しづつ成長していきます。';
+        speakOutput += '<break time="1s"/>';
+        speakOutput += '水を上げたい場合は私に言ってください。でもやりすぎはだめですよ。';
+        speakOutput += 'また、日光を当てたい場合は私にブラインドの上げ下げを言ってください。';
+        speakOutput += `${name} は、たくさんの日光が必要ですが、夜はブラインドを閉めてあげないと`;
+        speakOutput += '凍えてしまいます。';
 
     
         // let speakOutput = `${SOUND_FX.DESTINATION_TONE} I found the perfect cactus for you. `;
@@ -212,10 +204,10 @@ const CaptureDestinationHandler = {
         // speakOutput += 'You can ask me to water - but not too much! ';
         // speakOutput += 'Or you can ask me to open and close the blinds. ';
     
-        let repromptOutput = `${name} needs sun, you can open the blinds.`;        
+        let repromptOutput = `${name} が日光を欲しがっていますよ。ブラインドを開けてあげましょう。`;        
         
         if (profile.cactus.blindState === "open") {
-            repromptOutput = `${name} is cold, gets chilly at night! You can close the blinds.`;        
+            repromptOutput = `${name} が寒がっていますよ。夜になると凍えてしまいます。ブラインドを閉じてあげましょう。`;        
         }
         
         if(supportsHTMLInterface(handlerInput)) {
@@ -253,7 +245,7 @@ const WaterCactusIntentHandler = {
         profile.cactus.waterLevel += WATER_INCREMENT;
         profile.lifeTime.waterUnits += WATER_INCREMENT;
         
-        let speakOutput = `${SOUND_FX.WATER} ${SOUND_FX.SLURP} Thanks. I'm feeling like a fish in water again.`;
+        let speakOutput = `${SOUND_FX.WATER} ${SOUND_FX.SLURP} ありがとう。生き返ったような気分です。`;
 
         const status = statusUtil.getStatus(profile);
 
@@ -302,13 +294,13 @@ const HasCactusYesIntentHandler = {
             && getProfile(handlerInput).cactus.name;
     },
     handle(handlerInput) {
-        handlerInput.responseBuilder.speak('You already have a cactus.')
+        handlerInput.responseBuilder.speak('もうサボテンをお持ちですよ。')
         if(isHTMLCapableFireTV(handlerInput)) {
             return handlerInput.responseBuilder.getResponse();
         }
 
         return handlerInput.responseBuilder
-            .reprompt('You already have a cactus.')
+            .reprompt('もうサボテンをお持ちですよ。')
             .getResponse();
     }
 };
@@ -331,9 +323,8 @@ const DeadCactusNoIntentHandler = {
             && !getProfile(handlerInput).cactus.name;
     },
     handle(handlerInput) {
-        let speakOutput = "Ok. I'll give you time to grieve. I have lots "; 
-        speakOutput += "more cacti in need of homes when you decide you're "; 
-        speakOutput += "ready to try again. Goodbye";
+        let speakOutput = "わかりました。悲しみを癒やす時間が必要ですね。他にも多くのサボテンたちがあなたを待っています。"; 
+        speakOutput += "もう一度やり直すときにはまた読んでください。バイバイ。";
 
         return handlerInput.responseBuilder
             .speak(speakOutput)
@@ -349,14 +340,14 @@ const HasCactusNoIntentHandler = {
             && getProfile(handlerInput).cactus.name;
     },
     handle(handlerInput) {
-        handlerInput.responseBuilder.speak("You already have a cactus that's alive and well. You water the water the cactus, or open and close the blinds. Which will it be?")
+        handlerInput.responseBuilder.speak("あなたにはもう元気なサボテンがいますよ。水やりをしたり、ブラインドを上げ下げしてあげることができます。どうしますか？")
             
         if(isHTMLCapableFireTV(handlerInput)) {
             return handlerInput.responseBuilder.getResponse();
         }
 
         return handlerInput.responseBuilder
-            .reprompt("You already have a cactus that's alive and well. You water the water the cactus, or open and close the blinds. Which will it be?")
+            .reprompt("あなたにはもう元気なサボテンがいますよ。水やりをしたり、ブラインドを上げ下げしてあげることができます。どうしますか？")
             .getResponse();
     }
 };
@@ -419,13 +410,13 @@ const ShowBadgesIntentHandler = {
         const profile = getProfile(handlerInput);
         const latest = profile.unlockedBadges.latest;
         
-        let speakOutput = "You haven't unlocked any badges yet. Keep playing and I'm sure you'll unlock something. ";
+        let speakOutput = "まだ解除された実績はありません。ゲームを続けると実績が解除できますよ。";
         
         if (latest !== '') { 
-            speakOutput = `Your last unlocked badge is ${latest} `;
+            speakOutput = `最後に解除した実績は、${latest} です。`;
         }
 
-        const prompt = "What would you like to do?";
+        const prompt = "どうしますか？";
         speakOutput += prompt;
         
         
@@ -514,13 +505,13 @@ const HasCactusOpenBlindsIntentHandler = {
     },
     handle(handlerInput) {
         
-        let speakOutput = `${SOUND_FX.BOING} But ... the blinds are already open.`;
+        let speakOutput = `${SOUND_FX.BOING} <say-as interpret-as="interjection">ええっと</say-as>・・・ブラインドはもう開いてますよ？`;
         
         const profile = getProfile(handlerInput);
         
         if (profile.cactus.blindState !== 'open') {
             
-            speakOutput = `${SOUND_FX.SHORT_CHIME} I better get my sunglasses`;
+            speakOutput = `${SOUND_FX.SHORT_CHIME} <say-as interpret-as="interjection">わぁ</say-as>、サングラスが欲しくなりますね。`;
             
             profile.cactus.blindState = "open";    
             
@@ -572,12 +563,12 @@ const HasCactusCloseBlindsIntentHandler = {
     },
     handle(handlerInput) {
         
-        let speakOutput = `${SOUND_FX.BOING} But ... the blinds are already closed.`;
+        let speakOutput = `${SOUND_FX.BOING} <say-as interpret-as="interjection">ええっと</say-as>・・・ブラインドはもう閉じてますよ？`;
         
         const profile = getProfile(handlerInput);
         
         if (profile.cactus.blindState !== "closed") {
-            speakOutput = `${SOUND_FX.SHORT_CHIME} Hey who turned out all the lights?`;
+            speakOutput = `${SOUND_FX.SHORT_CHIME} <say-as interpret-as="interjection">うわっ</say-as>、誰か電気をつけて`;
         
             profile.cactus.blindState = "closed";
             
@@ -628,21 +619,20 @@ const HelpIntentHandler = {
 
         // TODO: Ask Alison for a better message for the case where they ask for
         // help before the cactus has been created.
-        let speakOutput = "This is my cactus. A cactus raising simulation game. ";
+        let speakOutput = "このスキルはサボテン育成シミュレーションゲームです。";
 
-        speakOutput = "I have lots of cacti in need of care! ";
-        speakOutput += "To match you with the right one for you to raise as your own, though, ";
-        speakOutput += "I’ll need to know a bit about you. ";
-        speakOutput += "If you could go anywhere in the world, where would you visit? ";
+        speakOutput = "あなたの世話を必要としているたくさんのサボテンたちが待っています。";
+        speakOutput += "あなたにぴったりのサボテンをご紹介するために一つ質問があります。";
+        speakOutput += '世界のどこかに行けるとしたら どこに行きますか？';
 
         const profile = getProfile(handlerInput);
 
         if (profile.cactus.name) {
-            speakOutput = `You’re raising a cactus named ${profile.cactus.name}. `;
-            speakOutput += "You can open the blinds during the day to make sure they get enough sunshine, "
-            speakOutput += "but don’t forget to close them at night or they’ll get cold! "        
-            speakOutput += "Pay close attention to their water, too. "
-            speakOutput += "Over-watering is just as bad as a drought! "            
+            speakOutput = `あなたは、${profile.cactus.name} という名前のサボテンを育てています。`;
+            speakOutput += "昼間は、ブラインドを上げて、日光を当ててあげることができます。"
+            speakOutput += "でも夜はブラインドを閉じてあげることを忘れないでください。そうしないと凍えてしまいます。"        
+            speakOutput += "水やりにも気を配ってください。"
+            speakOutput += "水の与えすぎは、水をあげないのと同じぐらい良くないです。"            
         }
         handlerInput.responseBuilder.speak(speakOutput)
         if(isHTMLCapableFireTV(handlerInput)) {
@@ -661,7 +651,7 @@ const CancelAndStopIntentHandler = {
                 || Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.StopIntent');
     },
     handle(handlerInput) {
-        const speakOutput = 'Goodbye!';
+        const speakOutput = '<say-as interpret-as="interjection">バイバイ</say-as>';
         return handlerInput.responseBuilder
             .speak(speakOutput)
             .getResponse();
@@ -674,7 +664,7 @@ const FallbackIntentHandler = {
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.FallbackIntent';
     },
     handle(handlerInput) {
-        const speakOutput = `${SOUND_FX.ERROR} I'm not sure about that. ${FALLBACK_REPROMPT}`;
+        const speakOutput = `${SOUND_FX.ERROR} ごめんなさい、よくわかりませんでした。${FALLBACK_REPROMPT}`;
         handlerInput.responseBuilder.speak(speakOutput)
         if(isHTMLCapableFireTV(handlerInput)) {
             return handlerInput.responseBuilder.getResponse();
@@ -724,7 +714,7 @@ const ErrorHandler = {
     },
     handle(handlerInput, error) {
         console.log(`~~~~ Error handled: ${error.stack}`);
-        const speakOutput = `<amazon:emotion name="disappointed" intensity="high">Aww no, The code is broken.</amazon:emotion>`;
+        const speakOutput = `<say-as interpret-as="interjection">あいたたた</say-as>、プログラムに問題があるようです。<say-as interpret-as="interjection">すみません</say-as>。`;
         handlerInput.responseBuilder.speak(speakOutput)
         if(isHTMLCapableFireTV(handlerInput)) {
             return handlerInput.responseBuilder.getResponse();
