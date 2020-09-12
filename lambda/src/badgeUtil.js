@@ -14,7 +14,7 @@ const evaluate = function(profile, currentTime) {
     if(waterUnits > 99 && waterUnits >= waterThreshold) {
         // update the badges
         unlockedBadges.waterUnits.push(waterUnits);
-        profile.unlockedBadges.latest = `Lifetime water units for giving your cactus over ${waterThreshold} units of water.`;
+        profile.unlockedBadges.latest = `サボテンに与えた通算水量が ${waterThreshold} ユニットを超えた。`;
     }
 
     // early bird badge rules check
@@ -24,7 +24,7 @@ const evaluate = function(profile, currentTime) {
             profile.newBadge = true;
         }
         unlockedBadges.earlyBird = true;
-        unlockedBadges.latest = 'The early badge for checking your cactus between the hours of 4 to 7 am.';
+        unlockedBadges.latest = '朝4時から7時のあいだにサボテンをチェックした「アーリーバード」バッジ';
     }
 
     // night owl badge rules check
@@ -34,7 +34,7 @@ const evaluate = function(profile, currentTime) {
             profile.newBadge = true;
         }
         unlockedBadges.nightOwl = true;
-        unlockedBadges.latest = 'The night owl badge for check your cactus from midnight to 3 am.';
+        unlockedBadges.latest = '深夜0時から3時までのあいだにサボテンをチェックした「ナイトオウル」バッジ';
     }
 
     //TODO investigate why changing back to dateOfBirthday still passes tests
@@ -57,7 +57,7 @@ const evaluate = function(profile, currentTime) {
         }
         if(actualDuration.asDays() >= badgeDuration) {
             unlockedBadges.durations[badgeDuration] = true;
-            unlockedBadges.latest = `For keeping your cactus alive for ${badgeDuration} day${badgeDuration == 1 ? '' : 's'}`;
+            unlockedBadges.latest = `${badgeDuration}日間サボテンを生存させた。`;
         } else {
             unlockedBadges.durations[badgeDuration] = false;
         }
@@ -70,7 +70,7 @@ const evaluate = function(profile, currentTime) {
             profile.newBadge = true;
         }
         unlockedBadges.helicopterParent = true;
-        unlockedBadges.latest = `For hovering over your cactus like a helicopter parent by checking on your cactus ${HELICOPTER_THRESHOLD} times in one day.`
+        unlockedBadges.latest = `サボテンの周りをずっと旋回しているヘリコプターペアレントのように、1日に ${HELICOPTER_THRESHOLD} 回チェックした。`
     }
 
     return unlockedBadges

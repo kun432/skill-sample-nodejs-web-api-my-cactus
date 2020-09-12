@@ -6,68 +6,62 @@ const util = require('../util');
 const WATER_THRESHOLD = 20;
 
 const NO_NEEDS = [
-    "is healthy.",
-    "is healthy as an ox. A very prickly ox.",
-    "is feeling healthy and strong.",
-    "is still going strong.",
-    "is feeling fit as a fiddle.",
-    "feels like a million bucks.",
-    "is feeling fresh today.",
-    "is flourishing.",
-    "is in good shape right now.",
-    "is feeling well."
+    "は、健康のようです。",
+    "は、元気でピンピンしているようです。",
+    "は、めちゃくちゃ元気なようです。",
+    "は、今日、爽やかな気分のようです。",
+    "は、エネルギーにあふれているようです。",
+    "は、調子が良いようです。",
+    "は、元気なようです。"
 ];
 
 const TWO_NEEDS = [
-    "is feeling sick.",
-    "isn’t feeling well.",
-    "is feeling under the weather.",
-    "is looking a bit green. And not in a good way.",
-    "is feeling depressed.",
-    "is feeling a bit melancholy.",
-    "is in a somber mood.",
-    "isn’t feeling like themselves.",
-    "is a bit out of sorts.",
-    "is looking forlorn."    
+    "は、体調が良くないようです。",
+    "は、調子が良くないようです。",
+    "は、体調不良のようです。",
+    "は、少し緑がかって見えます。あまり良くないようです。",
+    "は、気分が落ち込んでいるようです。",
+    "は、少し憂鬱な気分のようです。",
+    "は、気分が沈んでいるようです。",
+    "は、自分らしさを失っているようです。",
+    "は、少し寂しげに見えます。"    
 ];
 
 const WISDOM_MESSAGES = [
-    "Today I did yoga in the window for 16 hours. I'm best at cactus pose.",
-    "Today a bird flew into the window. I think it meant to build a nest in me.",
-    "Today a spider made a web between my spines. I was so flattered he pricked me.",
-    "Today I meditated for 16 hours. I think there was a spike in my brain activity.",
-    "This weather we're having sure prickles my fancy.",
-    "Today I watched dogs out the window. It made me glad that I don't live near the sidewalk.",
-    "Today I watched the grass grow. Fascinating stuff, that grass.",
-    "Today I watched the neighbor mow the lawn. It was horrifying.",
-    "I'm feeling very succulent today.",
-    "I'm feeling a little prickly today.",
-    "Today I listened to the radio – I wish those talk show guys would get to the point.",
-    "Today I offered a fly a free hug. I don't know why he didn't want one.",
-    "Today I watched a cat do its business in our yard. It was yucca.",
-    "Today I sat in the sun. Tomorrow I expect I'll do the same.",
-    "Today I watched the cars go by and wondered why my pot doesn't have wheels. Then I wondered where I'd go.",
-    "Today I counted the number of pebbles in my pot. No, I haven't lost all my rocks.",
-    "Today I asked the spider living in my spines if he'd ever leaf me. He didn't get my joke. I don't think he likes me.",
-    "I just wanted to tell you that Aloe you vera much.",
-    "Today I listened to a dog bark all day. I wonder what it was so stuck on.",
-    "Today was a good day. I hope your day was plant-tastic.",
-    "I'm really enjoying this window. I think it was mint to be.",
-    "I survive on photosynthesis alone – like a moss.",
-    "Today a fly kept landing on me. I asked him to leaf me alone.",
-    "Today I watched a pizza delivery driver bring a pizza. I've never eaten pizza but it looks yucca.",
-    "Today the fire alarm went off. I tried to romaine calm.",
-    "Today I saw a firetruck come. It turned out to be no fig deal.",
-    "I'm really growing quite frond of this window.",
-    "Today I met a caterpillar. He was looking sharp.",
-    "Today I wondered what it might be like to ride a bike. I decided that would be a thorny proposition.",
-    //TODO: Replace with actual sound effect
-    "Today I ate a fly. I don't think it agreed with my stomach. <sound FX>",
-    "The cat taught me this today. It means 'I love you' <purr sound FX>",
-    "The dog taught me this today. It means go away or I'll eat you. <dog bark FX> ",
-    "The dog taught me this today. It means I'm hungry. <dog bark FX> ",
-    "When I have a thorny day, I find my happy place. Today my happy place is ... <place sound FX>",
-    "When I get sand in my spines, I find my happy place. Today my happy place is ... <place sound FX>",    
+    "今日は窓際で16時間ヨガをしたよ。サボテンのポーズが一番得意なんだ。", 
+    "今日、鳥が窓に飛んできたよ。私の中に巣を作るつもりだったんだと思うよ。", 
+    "今日 クモが私のトゲの間に巣を作ったよ。 とても嬉しかったのでチクチク刺しちゃったよ。", 
+    "今日は16時間瞑想したよ。脳の活動が活発になった気がするよ。", 
+    "今日の天気は、私の空想力をチクチク刺激するよね。", 
+    "今日は窓から犬を見たよ。歩道の近くに住んでいなくて良かったと思ったよ。", 
+    "今日は草が生い茂ってるのを見たよ。とても魅惑的だったな、あ、草がね。", 
+    "今日は近所の人が芝刈りをしているのを見たよ。ちょっとぞっとしちゃった。", 
+    "今日はなんだか多肉質な感じがしてるよ。", 
+    "今日はなんだかちょっとチクチク感じるよ。", 
+    "今日はラジオを聴いたよ～あのトークショーの人たちが本題に入ってくれればいいのに。", 
+    "今日はハエにフリーハグをしてあげようと思ったんだけど、なんで彼は断ったんだろう。", 
+    "今日は猫が庭でおしっこしているのを見たよ。あれはユッカだと思うね。", 
+    "今日は日向ぼっこをしたよ。明日も同じだといいな。", 
+    "今日は車が通るのを見て、なぜ私の鉢は車輪がないのだろうと思ったよ。それから、私はどこに行くのかなと考えてしまったよ。", 
+    "今日は自分の鉢の中の小石の数を数えてみたよ。いや、石が全部なくなったわけじゃないんだけどね。", 
+    "ちょうど君にアロエ・ユー・ヴェラ・マッチを伝えたかったところだよ。", 
+    "今日は一日中犬の吠え声を聞いていたよ。何かにひっかかっていたんだろうね。", 
+    "今日は良い日だったよ。君の一日もプランタスティックであったと願っているよ。", 
+    "この窓辺をとても楽しいんでいるよ。惑わされるような窓だよね。", 
+    "私は光合成だけで生きているよ。コケのような気分だ。", 
+    "今日は一日中ハエが私によってきたんだよ。何も生えないことを祈ったよ。", 
+    "今日はピザの配達ドライバーがピザを持ってくるのを見たよ。ピザは食べたことないけど、ユッカみたいだね。", 
+    "今日は火災報知器が鳴ったよ。逃げるのをサボらないように気をつけたよ。", 
+    "今日は消防車が来たよ。怖くて真緑になっちゃったよ。", 
+    "私はこの窓がどんどん好きになってきたよ。", 
+    "今日はイモムシに会ったよ。彼はスリムだよね。", 
+    "今日は自転車に乗ってみたいと思ったけど、それは茨の道だとも思ったよ。", 
+    "今日はハエを食べてみたんだけど、私の胃袋に合わなかったみたい。<sound FX>", 
+    "今日、猫が教えてくれたんだ。愛してるっていう意味なんだって。<purr sound FX>", 
+    "今日、犬が教えてくれたんだ。あっちに行かないと食べるぞという意味なんだって。<dog bark FX>", 
+    "今日、犬が教えてくれたんだ。お腹が空いたっていう意味なんだって。<dog bark FX>", 
+    "トゲトゲしてるときにお気に入りの場所が見つかるんだ。今日の幸せな場所は、<place sound FX> だよ。", 
+    "背筋に砂が入るとお気に入りの場所が見つかるんだ。今日の私の幸せな場所は、<place sound FX> だよ。", 
 ];
 
 const getNeeds = function(profile) {
@@ -123,7 +117,7 @@ const getStatus = function(profile) {
         status.causeOfDeath = causeOfDeath;
     
         statusMessage = `${SOUND_FX.DEATH_TONE} ${getDeathNote(profile.cactus.name, causeOfDeath)} `;
-        prompt = "Want to start over with a new cactus?";
+        prompt = "新しいサボテンで最初からやり直しますか？";
     }
     // otherwise it has needs
     else {
@@ -135,16 +129,14 @@ const getStatus = function(profile) {
             
             // TODO: move this to API gateway and make sure that the items are not global 
             const ONE_NEED = [
-                `${profile.cactus.name} is feeling fine.`,
-                `${profile.cactus.name} is feeling just fine.`,
-                `All is OK with ${profile.cactus.name}.`,
-                `All is fine with ${profile.cactus.name}.`,
-                `${profile.cactus.name} is feeling just OK.`,
-                `${profile.cactus.name} is feeling indifferent.`,
-                `${profile.cactus.name} is doing alright.`,
-                `${profile.cactus.name} is doing alright, considering the circumstances.`,
-                `${profile.cactus.name} is feeling neutral right now.`,
-                `${profile.cactus.name} is feeling a bit blase.`, 
+                `${profile.cactus.name} は、まあまあ元気みたいです。`,
+                `${profile.cactus.name} は、まあ元気みたいです。`,
+                `${profile.cactus.name} は、まあ悪くないと感じているようです。`,
+                `${profile.cactus.name} は、可もなく不可もないといった感じのようです。`,
+                `${profile.cactus.name} は、まあまあの様子です。`,
+                `${profile.cactus.name} は、環境を考えると、まあ悪くない感じです。`,
+                `${profile.cactus.name} は、良くもなく悪くもなくな感じです。`,
+                `${profile.cactus.name} は、少しぶっきらぼうな感じです。`, 
             ];
             
             statusMessage = util.getRandomItemFromList(ONE_NEED);
@@ -155,19 +147,19 @@ const getStatus = function(profile) {
         }
         
         if(needs.water) {
-            prompt = `You can water ${profile.cactus.name}.`;
+            prompt = `${profile.cactus.name} に水やりができますよ。`;
         }
         
         if (needs.water && needs.comfort) {
-            prompt += " or ";
+            prompt += "または、";
         }
         
         if (needs.comfort) {
-            prompt +=  ` you can ${profile.cactus.blindState === 'closed' ?  'open' : 'close'} the blinds.`;
+            prompt +=  `ブラインドを${profile.cactus.blindState === 'closed' ?  '上げ' : '下げ'}ることができますよ。`;
         }
         
         if (needs.water && needs.comfort) {
-            prompt += " Which do you want?";
+            prompt += "どうしますか？";
         }
 
     }
@@ -261,26 +253,26 @@ const computeStatus = function(profile, latestInteraction, timeZone) {
 
 const getDeathNote = function(cactusName, causeOfDeath) {
     
-    let deathNote = `Here lies ${cactusName}; Its life you took into your hands; `;
-    deathNote += "Agreeing to meet their every demand. ";
+    let deathNote = `${cactusName}、ここに眠る。その生命はあなたの手の中にあった。そのすべての要求を満たすという同意とともに。`;
 
     switch (causeOfDeath) {
         case "dehydration":
-            deathNote += "But inattentive, you were; ";
-            deathNote += "there was one task you didn't bother; ";
-            deathNote += "and today we learned that even virtual cacti need water. ";
-            deathNote += `You forgot to water ${cactusName}. They've perished from dehydration. `;
+            deathNote += "しかしながら、あなたは無頓着であった。";
+            deathNote += "たった一つのことでさえ面倒くさがってやらなかった。";
+            deathNote += "そして今日私達は学んだ。バーチャルなサボテンであろうと水が必要だということを。";
+            deathNote += `あなたは ${cactusName} に水やりを忘れた。そして脱水状態により。その生命は失われた。`;
             break;
         case "drowning":
-            deathNote += "But overenthusiastic, you were; ";
-            deathNote += "though your intentions were sound; Today we learned at even virtual cacti can drown. ";
-            deathNote += `You over-watered ${cactusName}. They've died from drowning. `;
+            deathNote += "あなたの意図は健全であったのかもしれない。";
+            deathNote += "しかしながら、あなたは必要以上に熱心になりすぎた。";
+            deathNote += "そして今日私達は学んだ。バーチャルなサボテンであろうと水に溺れるということを。";
+            deathNote += `あなたは ${cactusName} に水をやりすぎた。そして根が腐って、その生命は失われた。`;
             break;
         // default cod is neglect
         default:
-            deathNote += "But slack off, you did, it's plain to see, ";
-            deathNote += "And today we learned that even virtual cacti have needs."
-            deathNote += `You let ${cactusName}'s heath score drop to 0. `;
+            deathNote += "しかしながら、あなたは怠惰であった、あなたがしたこと、それは明らかだ。";
+            deathNote += "そして今日私達は学んだ。バーチャルなサボテンであっても求めるものがあるということ。";
+            deathNote += `あなたは ${cactusName} の健康度をゼロにしてしまった。`;
             break;
     }
     return deathNote;
