@@ -1,16 +1,20 @@
 # Alexa Web API for Games 公式デモ "my-cactus" 非公式日本語版
 
 > ⚠️ **注意**
-> 本レポジトリは、Amazon公式のAlexa Web API for Gamesのサンプルとして公開されている"skill-sample-nodejs-web-api-my-cactus"をfolkして、kun432が**非公式**に日本語化したものです。
+>
+> 本レポジトリは、Amazon公式のAlexa Web API for Gamesのサンプルとして公開されている"skill-sample-nodejs-web-api-my-cactus"をfolkして、**kun432が非公式に日本語化した**ものです。
 >
 > 以下の修正を行っています。
 > - 各種メッセージの日本語化
 > - AWSリソースのセットアップ先を東京リージョンに変更
 > - セットアップ方法を本レポジトリに合わせて修正および補足追加
 > 
-> 手元で動作することは確認していますが、本レポジトリを利用した事によって生ずるいかなる損害についても責任を負いません。予めご了承ください。
-> また、うまく動作しない場合等は本レポジトリにissueを立ててください。公式のレポジトリにissueや問い合わせを送ることは絶対にやめていただけますようお願いいたします。
-
+> 手元でざっくり動作することは確認していますが、本レポジトリを利用した事によって生ずる如何なる損害についても責任を負いません。予めご了承ください。
+>
+> また、うまく動作しない場合等は本レポジトリにissueを立ててください。**公式のレポジトリにissueや問い合わせを送ることは絶対にやめていただけますようお願いいたします。**
+>
+> セットアップ手順は以下に記載の内容に従えばOKですが、ブログの方にもまとめましたので、そちらもご覧ください。
+> https://kun432.hatenablog.com/entry/alexa-web-api-for-games-sample-for-japanese
 
 ## Alexaサボテン育成シミュレーションゲーム
 
@@ -28,7 +32,7 @@ Alexaサボテン育成シミュレーションゲームのリポジトリです
 
 ターミナルから以下を実行してください。
 
-`ask new --template-url https://github.com/kun432/skill-sample-nodejs-web-api-my-cactus --template-branch translate-jp`
+`ask new --template-url https://github.com/kun432/skill-sample-nodejs-web-api-my-cactus --template-branch master`
 
 質問が表示されたら、`AWS with CloudFormation` を選択します。
 
@@ -52,12 +56,18 @@ Alexaサボテン育成シミュレーションゲームのリポジトリです
 * CloudFrontFullAccess
 * AWSCloudFormationFullAccess
 
-これで、このディレクトリから `ask deploy` を使ってデプロイすることができるようになります。これにより（Cloudformationの）スタックがセットアップされますが、必要なWebアセットはアップロードされません。アップロードを行うには、cloudformationデプロイで作成したPublicRead S3バケットの名前を取得し、環境変数として設定する必要があります。たとえば以下のようにします。
+これで、このディレクトリから `ask deploy` を使ってデプロイすることができるようになります。
+
+`ask deploy`
+
+これにより（Cloudformationの）スタックがセットアップされますが、必要なWebアセットはアップロードされません。アップロードを行うには、cloudformationデプロイで作成したPublicRead S3バケットの名前を取得し、環境変数として設定する必要があります。たとえば以下のようにします。
 
 `export MY_CACTUS_S3="ask-pricklypete-default-skillstack-s3webappbucket-1234abc56789"`
 
 次に、webappディレクトリに移動して、以下を実行します。
 
+`npm install`
+`npm run build`
 `npm run uploadS3`
 
 これでファイルがアップロードされ、テストが可能になり、コードはクラウド上でホストされている公開サイトを指し示します。公開されているリンクの値をローカルのものにオーバーライドしたい場合（たとえば、ローカル環境からアセットを提供している場合など）、Lambdaコンソールを開いて、"Domain" 環境変数をご自身の環境に合わせてでオーバーライドします。詳しい説明は [webapp ディレクトリ](./webapp) を参照してください。
