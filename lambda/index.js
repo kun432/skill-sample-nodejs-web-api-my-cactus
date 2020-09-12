@@ -328,6 +328,7 @@ const DeadCactusNoIntentHandler = {
 
         return handlerInput.responseBuilder
             .speak(speakOutput)
+            .withShouldEndSession(true)
             .getResponse();
     }
 };
@@ -654,6 +655,7 @@ const CancelAndStopIntentHandler = {
         const speakOutput = '<say-as interpret-as="interjection">バイバイ</say-as>';
         return handlerInput.responseBuilder
             .speak(speakOutput)
+            .withShouldEndSession(true)
             .getResponse();
     }
 };
